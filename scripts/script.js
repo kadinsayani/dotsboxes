@@ -17,7 +17,7 @@ function drawBoard() {
     context.lineTo(width + padding, 0.5 + x + padding);
   }
 
-  context.strokeStyle = "black";
+  context.strokeStyle = "white";
   context.stroke();
 }
 

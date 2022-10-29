@@ -1,21 +1,34 @@
 canvas {
-    background-color: #EDEBD7;
-    /* 1C77C3 */
-    /* D63230 */
-    /* E3B23C */
+    background-color: #000000;
 }
 
 body {
-    background-color: #423E37;
+    background-color: #000000;
+    /* 150050, FB2576, 3F0071*/
 }
 
 p,h1 {
     font-family: verdana;
-    color: #EDEBD7;
+    color: #EEEEEE;
+}
+
+#p1 {
+    font-family: verdana;
+    color: #00F5FF;
+}
+
+#p2 {
+    font-family: verdana;
+    color: #EA047E;
+}
+
+#p3 {
+    font-family: verdana;
+    color: #FCE700;
 }
 
 a {
-    background-color: #EDEBD7;
+    background-color: #EEEEEE;
     border: none;
     color: 423E37;
     padding: 20px;
