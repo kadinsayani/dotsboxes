@@ -1,0 +1,31 @@
+canvas {
+    background-color: #EDEBD7;
+    /* 1C77C3 */
+    /* D63230 */
+    /* E3B23C */
+}
+
+body {
+    background-color: #423E37;
+}
+
+p,h1 {
+    font-family: verdana;
+    color: #EDEBD7;
+}
+
+a {
+    background-color: #EDEBD7;
+    border: none;
+    color: 423E37;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: verdana;
+    text-decoration: none;
+}
