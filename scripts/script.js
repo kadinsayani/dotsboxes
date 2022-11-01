@@ -1,9 +1,20 @@
+$(document).ready(function () {
+  $("p").hide();
+  $("canvas").hide();
+  $("a").click(function () {
+    $("a").hide();
+    $("p").show();
+    $("canvas").show();
+    drawBoard();
+  });
+});
+
 // draw grid on canvas
 let width = 100;
 let height = 100;
 let padding = 10;
 
-let canvas = document.getElementById("canvas");
+let canvas = $("canvas");
 let context = canvas.getContext("2d");
 
 function drawBoard() {
@@ -17,13 +28,6 @@ function drawBoard() {
     context.lineTo(width + padding, 0.5 + x + padding);
   }
 
-  context.strokeStyle = "white";
+  context.strokeStyle = "black";
   context.stroke();
 }
-
-function startGame() {
-  drawBoard();
-  console.log("Game started");
-}
-
-startGame();
