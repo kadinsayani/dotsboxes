@@ -50,7 +50,7 @@ a {
     grid-template-rows: repeat(3, 150px);
 }
 
-.board>div {
+#box {
     padding: 10px;
     background-color: #EEEEEE;
     border: 4px grey solid;
@@ -59,6 +59,6 @@ a {
     place-items: center;
 }
 
-.board>div:hover {
+#box:hover {
     border: 4px #EEEEEE solid;
 }
