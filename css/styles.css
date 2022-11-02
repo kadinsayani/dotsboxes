@@ -53,7 +53,12 @@ a {
 .board>div {
     padding: 10px;
     background-color: #EEEEEE;
+    border: 4px grey solid;
     border-radius: 5px;
     display: grid;
     place-items: center;
+}
+
+.board>div:hover {
+    border: 4px #EEEEEE solid;
 }
