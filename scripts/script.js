@@ -16,19 +16,20 @@ function startGame() {
   console.log("game started");
   let gameOver = true;
 
+  $(".board > #box").each(function () {
+    $(this).css("border", "3px grey solid");
+  });
+
   playerTurn(p1);
 }
 
 function playerTurn(currentPlayer) {
   var color = currentPlayer.color;
   $(".board > #box").each(function () {
-    $(this).css("border", "3px grey solid");
     $("#box > #top-line").click(function () {
-      // change this.parent border
       $(this)
         .parent()
         .css("border-top", "3px " + color + " solid");
-      // $(this).css("border-top", "3px " + color + " solid");
     });
     $("#box > #bottom-line").click(function () {
       $(this)
