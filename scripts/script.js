@@ -25,6 +25,7 @@ $(document).ready(function () {
   $(".board").hide();
   $("a").click(function () {
     $("a").hide();
+    $("h2").hide();
     $("p").show();
     $(".board").show();
   });

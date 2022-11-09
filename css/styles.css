@@ -12,6 +12,12 @@ p,h1 {
     color: #EEEEEE;
 }
 
+h2 {
+    font-family: verdana;
+    color: #EEEEEE;
+    font-size: x-small;
+}
+
 #p1 {
     font-family: verdana;
     color: #00F5FF;
