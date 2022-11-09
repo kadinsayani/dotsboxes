@@ -10,20 +10,40 @@ $(document).ready(function () {
 });
 
 function startGame() {
-  const p1 = { score: 0, playerNumber: 1 };
-  const p2 = { score: 0, playerNumber: 2 };
-  const p3 = { score: 0, playerNumber: 3 };
+  const p1 = { score: 0, playerNumber: 1, color: "#00F5FF" };
+  const p2 = { score: 0, playerNumber: 2, color: "#EA047E" };
+  const p3 = { score: 0, playerNumber: 3, color: "#FCE700" };
   console.log("game started");
+  let gameOver = true;
 
-  let currentPlayer = p1;
-  if (currentPlayer.playerNumber == 1) {
-    //TODO
-    currentPlayer = p2;
-  } else if (currentPlayer.playerNumber == 2) {
-    //TODO
-    currentPlayer = p3;
-  } else {
-    //TODO
-    currentPlayer = p1;
-  }
+  playerTurn(p1);
+}
+
+function playerTurn(currentPlayer) {
+  var color = currentPlayer.color;
+  $(".board > #box").each(function () {
+    $(this).css("border", "3px grey solid");
+    $("#box > #top-line").click(function () {
+      // change this.parent border
+      $(this)
+        .parent()
+        .css("border-top", "3px " + color + " solid");
+      // $(this).css("border-top", "3px " + color + " solid");
+    });
+    $("#box > #bottom-line").click(function () {
+      $(this)
+        .parent()
+        .css("border-bottom", "3px " + color + " solid");
+    });
+    $("#box > #left-line").click(function () {
+      $(this)
+        .parent()
+        .css("border-left", "3px " + color + " solid");
+    });
+    $("#box > #right-line").click(function () {
+      $(this)
+        .parent()
+        .css("border-right", "3px " + color + " solid");
+    });
+  });
 }
