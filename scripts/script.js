@@ -36,34 +36,30 @@ function startGame() {
   console.log("game started");
   let gameOver = true;
 
-  $(".board > #box").each(function () {
-    $(this).css("border", "3px grey solid");
-  });
-
   playerTurn(p1);
 }
 
 function playerTurn(currentPlayer) {
   let color = currentPlayer.color;
-  $("#box > #top-line").click(function () {
+  $(".box > .top-line").click(function () {
     $(this)
       .parent()
       .css("border-top", "3px " + color + " solid");
     checkNextPlayer(currentPlayer);
   });
-  $("#box > #bottom-line").click(function () {
+  $(".box > .bottom-line").click(function () {
     $(this)
       .parent()
       .css("border-bottom", "3px " + color + " solid");
     checkNextPlayer(currentPlayer);
   });
-  $("#box > #left-line").click(function () {
+  $(".box > .left-line").click(function () {
     $(this)
       .parent()
       .css("border-left", "3px " + color + " solid");
     checkNextPlayer(currentPlayer);
   });
-  $("#box > #right-line").click(function () {
+  $(".box > .right-line").click(function () {
     $(this)
       .parent()
       .css("border-right", "3px " + color + " solid");

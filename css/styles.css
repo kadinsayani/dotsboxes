@@ -1,6 +1,3 @@
-canvas {
-    background-color: #EEEEEE;
-}
 
 body {
     background-color: #000000;
@@ -18,17 +15,17 @@ h2 {
     font-size: x-small;
 }
 
-#p1 {
+.p1 {
     font-family: verdana;
     color: #00F5FF;
 }
 
-#p2 {
+.p2 {
     font-family: verdana;
     color: #EA047E;
 }
 
-#p3 {
+.p3 {
     font-family: verdana;
     color: #FCE700;
 }
@@ -56,7 +53,7 @@ a {
     grid-template-rows: repeat(3, 150px);
 }
 
-#box {
+.box {
     padding: 0px;
     background-color: #EEEEEE;
     display: grid;
@@ -65,17 +62,17 @@ a {
             "left bottom bottom right";
 }
 
-#top-line {
+.top-line {
     grid-area: top;
 }
 
-#right-line {
+.right-line {
     grid-area: right;
 }
-#left-line {
+.left-line {
     grid-area: left;
 }
-#bottom-line {
+.bottom-line {
     grid-area: bottom;
 }
 
