@@ -96,8 +96,10 @@ $(document).ready(function () {
 });
 
 function startGame() {
+  // add white broder to each box
+  $(".box").css("border", "3px #EEEEEE solid");
   console.log("game started");
-  let gameOver = true;
+  let gameOver = false;
 
   playerTurn(p1);
 }
@@ -108,39 +110,45 @@ function playerTurn(currentPlayer) {
     $(this)
       .parent()
       .css("border-top", "3px " + color + " solid");
-    updateBox(this, currentPlayer);
-    checkNextPlayer(currentPlayer);
+    updateBox(currentPlayer);
   });
   $(".box > .bottom-line").click(function () {
     $(this)
       .parent()
       .css("border-bottom", "3px " + color + " solid");
-    checkNextPlayer(currentPlayer);
+    updateBox(currentPlayer);
   });
   $(".box > .left-line").click(function () {
     $(this)
       .parent()
       .css("border-left", "3px " + color + " solid");
-    checkNextPlayer(currentPlayer);
+    updateBox(currentPlayer);
   });
   $(".box > .right-line").click(function () {
     $(this)
       .parent()
       .css("border-right", "3px " + color + " solid");
-    checkNextPlayer(currentPlayer);
+    updateBox(currentPlayer);
   });
 }
 
-function updateBox(this, currentPlayer) {
-  if ($(this).css("border-top") != "") {
-    box1.topLine=true;
-  } else if ($(this).css("border-bottom") != "") {
-    box1.bottomLine=true;
-  } else if ($(this).css("border-left") != "") {
-    box1.leftLine=true;
-  } else if ($(this).css("border-right") != "") {
-    box1.rightLine=true;
-  }
+function updateBox(currentPlayer) {
+  checkNextPlayer(currentPlayer);
+  // if ($(this).css("border-top") != "3px #EEEEEE solid") {
+  //   box1.topLine = true;
+  //   checkNextPlayer(currentPlayer);
+  // } else if ($(this).css("border-bottom") != "3px #EEEEEE solid") {
+  //   box1.bottomLine = true;
+  //   checkNextPlayer(currentPlayer);
+  // } else if ($(this).css("border-left") != "3px #EEEEEE solid") {
+  //   box1.leftLine = true;
+  //   checkNextPlayer(currentPlayer);
+  // } else if ($(this).css("border-right") != "3px #EEEEEE solid") {
+  //   box1.rightLine = true;
+  //   checkNextPlayer(currentPlayer);
+  // } else {
+  //   checkNextPlayer(currentPlayer);
+  // }
 }
 
 function checkNextPlayer(currentPlayer) {
