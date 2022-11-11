@@ -19,146 +19,113 @@ let p3 = {
   nextPlayer: 1,
   previousPlayer: 2,
 };
-let box1 = {
-  boxNumber: 1,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box2 = {
-  boxNumber: 2,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box3 = {
-  boxNumber: 3,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box4 = {
-  boxNumber: 4,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box5 = {
-  boxNumber: 5,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box6 = {
-  boxNumber: 6,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box7 = {
-  boxNumber: 7,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box8 = {
-  boxNumber: 8,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
-let box9 = {
-  boxNumber: 9,
-  topLine: false,
-  bottomLine: false,
-  rightLine: false,
-  leftLine: false,
-};
 
-$(document).ready(function () {
-  $("p").hide();
-  $(".board").hide();
-  $("a").click(function () {
-    $("a").hide();
-    $("h2").hide();
-    $("p").show();
-    $(".board").show();
-  });
-  startGame();
-});
+function Box(x, y, width, height, number) {
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
+  this.number = number;
+}
+
+function Dot(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+const GRIDSIZE = 3;
+const CELLSIZE = 100;
+const currentPlayer = p1;
+let boxes = [];
+let dots = [];
+
+// set up canvas
+var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+const width = 500;
+const height = 500;
+
+// function to draw canvas
+function drawCanvas() {
+  canvas.width = width;
+  canvas.height = height;
+  ctx.fillStyle = "#EEEEEE";
+  ctx.fillRect(0, 0, width, height);
+  document.body.appendChild(canvas);
+}
+
+function drawDots() {
+  for (let i = 0; i < GRIDSIZE + 1; i++) {
+    for (let j = 0; j < GRIDSIZE + 1; j++) {
+      // fill array of boxes with new box objects
+      boxes.push(new Box(i * CELLSIZE, j * CELLSIZE, CELLSIZE, CELLSIZE), i);
+      ctx.fillStyle = "#000000";
+      ctx.beginPath();
+      // 3x3 grid of dots
+      ctx.arc((i + 1) * CELLSIZE, (j + 1) * CELLSIZE, 5, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+}
+
+function mouseMoveHandler(e) {
+  let rect = canvas.getBoundingClientRect();
+  let mouseX = e.clientX - rect.left;
+  let mouseY = e.clientY - rect.top;
+}
+
+function click(e) {
+  let rect = canvas.getBoundingClientRect();
+  let mouseX = e.clientX - rect.left;
+  let mouseY = e.clientY - rect.top;
+  selectSide(mouseX, mouseY);
+}
+
+function selectSide(mouseX, mouseY) {}
+
+function drawLine(x1, y1, x2, y2) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+}
+
+function getDotCoordinates() {
+  for (let i = 0; i < boxes.length; i++) {
+    dots.push(new Dot(boxes[i].x + CELLSIZE / 2, boxes[i].y + CELLSIZE / 2));
+  }
+}
+
+canvas.addEventListener("mousemove", mouseMoveHandler);
+canvas.addEventListener("click", click);
+
+function playerTurn(currentPlayer) {
+  ctx.fillStyle = currentPlayer.color;
+}
+function changePlayer(currentPlayer) {
+  if (currentPlayer.playerNumber === 1) {
+    playerTurn(p2);
+  } else if (currentPlayer.playerNumber === 2) {
+    playerTurn(p3);
+  } else if (currentPlayer.playerNumber === 3) {
+    playerTurn(p1);
+  }
+}
+
+function drawPlayerScoreboard() {
+  ctx.fillStyle = "#000000";
+  ctx.font = "20px verdana";
+  ctx.fillText("Player 1: ", 20, 20);
+  ctx.fillText("Player 2: ", 20, 40);
+  ctx.fillText("Player 3: ", 20, 60);
+}
 
 function startGame() {
-  // add white broder to each box
-  $(".box").css("border", "3px #EEEEEE solid");
-  console.log("game started");
-  let gameOver = false;
-
+  drawCanvas();
+  drawDots();
+  drawPlayerScoreboard();
+  getDotCoordinates();
   playerTurn(p1);
 }
 
-function playerTurn(currentPlayer) {
-  let color = currentPlayer.color;
-  $(".box > .top-line").click(function () {
-    $(this)
-      .parent()
-      .css("border-top", "3px " + color + " solid");
-    updateBox(currentPlayer);
-  });
-  $(".box > .bottom-line").click(function () {
-    $(this)
-      .parent()
-      .css("border-bottom", "3px " + color + " solid");
-    updateBox(currentPlayer);
-  });
-  $(".box > .left-line").click(function () {
-    $(this)
-      .parent()
-      .css("border-left", "3px " + color + " solid");
-    updateBox(currentPlayer);
-  });
-  $(".box > .right-line").click(function () {
-    $(this)
-      .parent()
-      .css("border-right", "3px " + color + " solid");
-    updateBox(currentPlayer);
-  });
-}
-
-function updateBox(currentPlayer) {
-  checkNextPlayer(currentPlayer);
-  // if ($(this).css("border-top") != "3px #EEEEEE solid") {
-  //   box1.topLine = true;
-  //   checkNextPlayer(currentPlayer);
-  // } else if ($(this).css("border-bottom") != "3px #EEEEEE solid") {
-  //   box1.bottomLine = true;
-  //   checkNextPlayer(currentPlayer);
-  // } else if ($(this).css("border-left") != "3px #EEEEEE solid") {
-  //   box1.leftLine = true;
-  //   checkNextPlayer(currentPlayer);
-  // } else if ($(this).css("border-right") != "3px #EEEEEE solid") {
-  //   box1.rightLine = true;
-  //   checkNextPlayer(currentPlayer);
-  // } else {
-  //   checkNextPlayer(currentPlayer);
-  // }
-}
-
-function checkNextPlayer(currentPlayer) {
-  if (currentPlayer.nextPlayer == 1) {
-    playerTurn(p1);
-  }
-  if (currentPlayer.nextPlayer == 2) {
-    playerTurn(p2);
-  }
-  if (currentPlayer.nextPlayer == 3) {
-    playerTurn(p3);
-  }
-}
+startGame();
