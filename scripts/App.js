@@ -12,19 +12,71 @@ class App extends React.Component {
       greenScore: 0,
       turn: "red",
       winner: null,
-      gameOver: false,
       lines: {},
       boxColors: {},
-      box1: { top: false, right: false, bottom: false, left: false , filled : false},
-      box2: { top: false, right: false, bottom: false, left: false, filled : false },
-      box3: { top: false, right: false, bottom: false, left: false, filled : false },
-      box4: { top: false, right: false, bottom: false, left: false , filled : false},
-      box5: { top: false, right: false, bottom: false, left: false , filled : false},
-      box6: { top: false, right: false, bottom: false, left: false , filled : false},
-      box7: { top: false, right: false, bottom: false, left: false , filled : false},
-      box8: { top: false, right: false, bottom: false, left: false , filled : false},
-      box9: { top: false, right: false, bottom: false, left: false , filled : false},
-
+      box1: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box2: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box3: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box4: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box5: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box6: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box7: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box8: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
+      box9: {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        filled: false,
+      },
     };
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < state.boardSize; j++) {
@@ -47,8 +99,8 @@ class App extends React.Component {
     this.updateLines(coord);
     this.updateBoxes(coord);
     this.updateBoxColors(coord);
-    this.updateTurnState(this.nextPlayer());
     this.checkWinner();
+    this.updateTurnState(this.nextPlayer());
   };
 
   updateLines = (coord) => {
@@ -92,47 +144,47 @@ class App extends React.Component {
     let box7 = this.state.box7;
     let box8 = this.state.box8;
     let box9 = this.state.box9;
-    if (coord == "0,0,0") { 
+    if (coord == "0,0,0") {
       box1.top = true;
     }
     if (coord == "0,1,0") {
       box1.bottom = true;
-      box4.top=true;
+      box4.top = true;
     }
-    if(coord == "1,0,0") {
-      box1.left=true;
+    if (coord == "1,0,0") {
+      box1.left = true;
     }
-    if(coord=="1,1,0") {
-      box1.right=true;
-      box2.left=true;
+    if (coord == "1,1,0") {
+      box1.right = true;
+      box2.left = true;
     }
     if (coord == "0,0,1") {
       box2.top = true;
     }
     if (coord == "0,1,1") {
       box2.bottom = true;
-      box5.top=true;
+      box5.top = true;
     }
-    if(coord == "1,0,1") {
-      box4.left=true;
+    if (coord == "1,0,1") {
+      box4.left = true;
     }
-    if(coord=="1,1,1") {
-      box4.right=true;
-      box5.left=true;
+    if (coord == "1,1,1") {
+      box4.right = true;
+      box5.left = true;
     }
     if (coord == "0,0,2") {
       box3.top = true;
     }
     if (coord == "0,1,2") {
       box3.bottom = true;
-      box6.top=true;
+      box6.top = true;
     }
-    if(coord == "1,0,2") {
-      box7.left=true;
+    if (coord == "1,0,2") {
+      box7.left = true;
     }
-    if(coord=="1,1,2") {
-      box7.right=true;
-      box8.left=true;
+    if (coord == "1,1,2") {
+      box7.right = true;
+      box8.left = true;
     }
     if (coord == "0,3,2") {
       box9.bottom = true;
@@ -176,7 +228,7 @@ class App extends React.Component {
     if (coord == "1,3,2") {
       box9.right = true;
     }
-  }
+  };
 
   updateBoxColors = (coord) => {
     let boxColors = this.state.boxColors;
@@ -259,23 +311,32 @@ class App extends React.Component {
     let greenScore = this.state.greenScore;
     let winner = this.state.winner;
     let boardSize = this.state.boardSize;
-    if (redScore > blueScore && redScore > greenScore) {
-      winner = "red";
-    } else if (blueScore > redScore && blueScore > greenScore) {
-      winner = "blue";
-    } else if (greenScore > redScore && greenScore > blueScore) {
-      winner = "green";
-    } else if (redScore === blueScore && redScore > greenScore) {
-      winner = "red and blue";
-    } else if (redScore === greenScore && redScore > blueScore) {
-      winner = "red and green";
-    } else if (blueScore === greenScore && blueScore > redScore) {
-      winner = "blue and green";
-    } else if (redScore === blueScore && redScore === greenScore) {
-      winner = "red, blue, and green";
-    } 
-    if (this.state.gameOver == true) {
-      alert("Game Over. Winner is " + winner + "!");
+    if (redScore != 0 && blueScore != 0 && greenScore != 0) {
+      if (redScore > blueScore && redScore > greenScore) {
+        winner = "Red";
+        this.setState({ winner: winner });
+      } else if (blueScore > redScore && blueScore > greenScore) {
+        winner = "Blue";
+        this.setState({ winner: winner });
+      } else if (greenScore > redScore && greenScore > blueScore) {
+        winner = "Green";
+        this.setState({ winner: winner });
+      } else if (redScore === blueScore && redScore > greenScore) {
+        winner = "Red and Blue";
+        this.setState({ winner: winner });
+      } else if (redScore === greenScore && redScore > blueScore) {
+        winner = "Red and Green";
+        this.setState({ winner: winner });
+      } else if (blueScore === greenScore && blueScore > redScore) {
+        winner = "Blue and Green";
+        this.setState({ winner: winner });
+      } else if (redScore === blueScore && redScore === greenScore) {
+        winner = "Red, Blue, and Green";
+        this.setState({ winner: winner });
+      } else {
+        winner = "No winner yet!;";
+        this.setState({ winner: winner });
+      }
     }
   };
 
@@ -302,7 +363,8 @@ class App extends React.Component {
                 "div",
                 {
                   className: "hContainer",
-                  "data-coord": "0," + Math.floor(i / 2) + "," + Math.floor(j / 2),
+                  "data-coord":
+                    "0," + Math.floor(i / 2) + "," + Math.floor(j / 2),
                   onClick: this.playerMove,
                 },
                 ""
@@ -316,7 +378,8 @@ class App extends React.Component {
                 "div",
                 {
                   className: "vContainer",
-                  "data-coord": "1," + Math.floor(j / 2) + "," + Math.floor(i / 2),
+                  "data-coord":
+                    "1," + Math.floor(j / 2) + "," + Math.floor(i / 2),
                   onClick: this.playerMove,
                 },
                 ""
@@ -350,14 +413,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="game">
-        <h1>Dots and Boxes </h1>
-        <p>
-          {" "}
-          Red:{this.state.redScore} Blue:{this.state.blueScore} Green:
-          {this.state.greenScore}
-        </p>
-        <div id="board">{this.createBoard(this.state.boardSize)}</div>
+      <div>
+        <div id="game">
+          <h1>Dots and Boxes </h1>
+          <p>
+            {" "}
+            Red:{this.state.redScore} Blue:{this.state.blueScore} Green:
+            {this.state.greenScore}
+          </p>
+          <p>Winner:{this.state.winner}</p>
+          <div id="board">{this.createBoard(this.state.boardSize)}</div>
+        </div>
+        <a href="/index.html">Restart</a>
       </div>
     );
   }

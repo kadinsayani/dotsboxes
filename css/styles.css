@@ -8,6 +8,14 @@ h1, p
     background-color: #000000;
  }
 
+ button {
+    background-color: #000000;
+    color: #EEEEEE;
+    border: 1px solid #EEEEEE;
+    padding: 20px;
+    border-radius: 12px;
+ }
+
  a {
      background-color: #EEEEEE;
      border: none;
