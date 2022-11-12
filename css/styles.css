@@ -1,78 +1,66 @@
+h1, p
+ {
+    font-family: verdana;
+    color: #EEEEEE;
+ }
 
-body {
+ body {
     background-color: #000000;
-    /* 150050, FB2576, 3F0071*/
+ }
+
+ a {
+     background-color: #EEEEEE;
+     border: none;
+     color: 423E37;
+     padding: 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     margin: 4px 2px;
+     border-radius: 12px;
+     cursor: pointer;
+     font-family: verdana;
+     text-decoration: none;
+ }
+
+#game {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
 }
 
-p,h1 {
-    font-family: verdana;
-    color: #EEEEEE;
+.row {
+    display: flex;
+    flex-direction: row;
 }
 
-h2 {
-    font-family: verdana;
-    color: #EEEEEE;
-    font-size: x-small;
-}
-
-.p1 {
-    font-family: verdana;
-    color: #00F5FF;
-}
-
-.p2 {
-    font-family: verdana;
-    color: #EA047E;
-}
-
-.p3 {
-    font-family: verdana;
-    color: #FCE700;
-}
-
-a {
+.dot {
+    height: 8px;
+    width: 8px;
     background-color: #EEEEEE;
-    border: none;
-    color: 423E37;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-family: verdana;
-    text-decoration: none;
-}
-
-.board {
-    display: grid;
-    grid-gap: 1px;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: repeat(3, 150px);
 }
 
 .box {
-    padding: 0px;
-    background-color: #EEEEEE;
-    display: grid;
-    grid-template-areas:
-            "left top top right"
-            "left bottom bottom right";
+    height: 1;
+    width: 150px;
 }
 
-.top-line {
-    grid-area: top;
+.hContainer {
+    height: 8px;
+    width: 150px;
+    border: 4px;
 }
 
-.right-line {
-    grid-area: right;
-}
-.left-line {
-    grid-area: left;
-}
-.bottom-line {
-    grid-area: bottom;
+.vContainer {
+    height: 150px;
+    width: 8px;
+    border: 4px;
 }
 
+#board {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 50px;
+    margin: 10px
+}
