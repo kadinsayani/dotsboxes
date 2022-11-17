@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
-app.use(express.json());
+const server = require("http").createServer(app).listen(8080);
+const io = require("socket.io").listen(server);
+const game = require("../client/scripts/Game.js");
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+io.sockets.on("connection", (socket) => {
+  console.log("client connected");
 });
