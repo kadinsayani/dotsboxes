@@ -1,8 +1,18 @@
 const socket = io();
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.board();
+    socket.on("init", this.handleInit);
+    // recieve game state from socket
+    socket.on("game state", this.handleStateChange);
+  }
+
+  handleStateChange(newBoardState) {
+    this.state = newBoardState;
+    // update all lines
+    console.log(newBoardState.blueScore);
   }
 
   board = () => {
@@ -102,16 +112,18 @@ class Game extends React.Component {
     this.updateBoxColors(coord);
     this.checkWinner();
     this.updateTurnState(this.nextPlayer());
+    // send game state to socket
+    socket.emit("game state", this.state);
   };
 
   updateLines = (coord) => {
     let lines = this.state.lines;
     if (this.state.turn == "red") {
-      lines[coord] = 1;
+      lines[coord] = "red";
     } else if (this.state.turn == "blue") {
-      lines[coord] = 2;
+      lines[coord] = "blue";
     } else if (this.state.turn == "green") {
-      lines[coord] = 3;
+      lines[coord] = "green";
     }
     this.setState({ lines: lines });
     console.log(lines);
@@ -341,6 +353,10 @@ class Game extends React.Component {
     }
   };
 
+  handleInit = (msg) => {
+    console.log(msg);
+  };
+
   createBoard = (boardSize) => {
     var cols = [];
     for (let i = 0; i <= 2 * boardSize; i++) {
@@ -408,7 +424,6 @@ class Game extends React.Component {
       }
       cols.push(React.createElement("div", { className: "row" }, row));
     }
-
     return React.createElement("div", { id: "game-board" }, cols);
   };
 

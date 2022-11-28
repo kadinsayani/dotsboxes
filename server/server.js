@@ -11,7 +11,11 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("client connected");
+  // send game state to new client
+  socket.on("game state", (gameState) => {
+    console.log(gameState);
+    io.emit("game state", gameState);
+  });
 });
 
 server.listen(3000, () => {
