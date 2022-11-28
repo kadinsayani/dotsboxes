@@ -10,9 +10,7 @@ class Game extends React.Component {
   }
 
   handleStateChange(newBoardState) {
-    this.state = newBoardState;
-    // update all lines
-    console.log(newBoardState.blueScore);
+    this.state = { ...newBoardState };
   }
 
   board = () => {
