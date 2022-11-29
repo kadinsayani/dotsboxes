@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   // send game state to new client
   socket.on("game state", (gameState) => {
-    console.log(gameState);
+    console.log("game state", gameState);
     io.emit("game state", gameState);
   });
 });

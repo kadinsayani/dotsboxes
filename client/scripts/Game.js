@@ -6,11 +6,9 @@ class Game extends React.Component {
     this.state = this.board();
     socket.on("init", this.handleInit);
     // recieve game state from socket
-    socket.on("game state", this.handleStateChange);
-  }
-
-  handleStateChange(newBoardState) {
-    this.state = { ...newBoardState };
+    socket.on("game state", (newBoardState) => {
+      this.setState({ ...newBoardState });
+    });
   }
 
   board = () => {
@@ -22,6 +20,7 @@ class Game extends React.Component {
       turn: "red",
       winner: null,
       lines: {},
+      lineColors: {},
       boxColors: {},
       box1: {
         top: false,
@@ -124,7 +123,6 @@ class Game extends React.Component {
       lines[coord] = "green";
     }
     this.setState({ lines: lines });
-    console.log(lines);
   };
 
   nextPlayer = () => {
@@ -145,7 +143,6 @@ class Game extends React.Component {
 
   updateBoxes = (coord) => {
     // if line part of box, update box side to true
-    console.log(coord);
     let box1 = this.state.box1;
     let box2 = this.state.box2;
     let box3 = this.state.box3;
@@ -302,17 +299,26 @@ class Game extends React.Component {
 
   updateScore = () => {
     if (this.state.turn === "red") {
-      this.setState({
-        redScore: this.state.redScore + 1,
-      });
+      this.setState(
+        {
+          redScore: this.state.redScore + 1,
+        },
+        () => socket.emit("game state", this.state)
+      );
     } else if (this.state.turn === "blue") {
-      this.setState({
-        blueScore: this.state.blueScore + 1,
-      });
+      this.setState(
+        {
+          blueScore: this.state.blueScore + 1,
+        },
+        () => socket.emit("game state", this.state)
+      );
     } else if (this.state.turn === "green") {
-      this.setState({
-        greenScore: this.state.greenScore + 1,
-      });
+      this.setState(
+        {
+          greenScore: this.state.greenScore + 1,
+        },
+        () => socket.emit("game state", this.state)
+      );
     }
   };
 
@@ -349,10 +355,6 @@ class Game extends React.Component {
         this.setState({ winner: winner });
       }
     }
-  };
-
-  handleInit = (msg) => {
-    console.log(msg);
   };
 
   createBoard = (boardSize) => {
