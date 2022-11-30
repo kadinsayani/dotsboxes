@@ -9,6 +9,9 @@ class Game extends React.Component {
     socket.on("game state", (newBoardState) => {
       this.setState({ ...newBoardState });
     });
+    socket.on("update line", (data) => {
+      this.socketUpdateLines(data);
+    });
   }
 
   board = () => {
@@ -20,7 +23,6 @@ class Game extends React.Component {
       turn: "red",
       winner: null,
       lines: {},
-      lineColors: {},
       boxColors: {},
       box1: {
         top: false,
@@ -104,13 +106,29 @@ class Game extends React.Component {
   playerMove = () => {
     let coord = event.target.dataset.coord;
     event.target.style.backgroundColor = this.state.turn;
+
+    let data = { board: this.state.board, coord: coord };
+    socket.emit("update line", data);
+
     this.updateLines(coord);
     this.updateBoxes(coord);
     this.updateBoxColors(coord);
     this.checkWinner();
     this.updateTurnState(this.nextPlayer());
-    // send game state to socket
-    socket.emit("game state", this.state);
+  };
+
+  socketUpdateLines = (data) => {
+    let { board, coord } = data;
+    let targetElement = document.querySelector(`[data-coord="${coord}"]`);
+    targetElement.style.backgroundColor = this.state.turn;
+
+    this.setState({ ...board }, () => {
+      this.updateLines(coord);
+      this.updateBoxes(coord);
+      this.updateBoxColors(coord);
+      this.checkWinner();
+      this.updateTurnState(this.nextPlayer());
+    });
   };
 
   updateLines = (coord) => {

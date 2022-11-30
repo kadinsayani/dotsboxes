@@ -16,6 +16,9 @@ io.on("connection", (socket) => {
     console.log("game state", gameState);
     io.emit("game state", gameState);
   });
+  socket.on("update line", (data) => {
+    socket.broadcast.emit("update line", data);
+  });
 });
 
 server.listen(3000, () => {

@@ -9,11 +9,19 @@ h1, p
  }
 
  button {
-    background-color: #000000;
-    color: #EEEEEE;
-    border: 1px solid #EEEEEE;
+    background-color: #EEEEEE;
+    border: none;
+    color: 423E37;
     padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     border-radius: 12px;
+    cursor: pointer;
+    font-family: verdana;
+    text-decoration: none;
  }
 
  a {
@@ -71,4 +79,18 @@ h1, p
     flex-direction: column;
     padding: 10px 50px;
     margin: 10px
+}
+
+input[type=text] {
+    background-color: #EEEEEE;
+    border-radius: 6px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    align-content: stretch;
 }

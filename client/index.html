@@ -9,6 +9,26 @@
   <body>
     <h1>Dots and Boxes</h1>
     <br />
-    <a href="/html/game.html">Start</a>
+    <div class="container">
+      <button onclick="createGame()">Create a new game</button>
+      <button onclick="joinGame()">Join a game</button>
+    </div>
+
+    <script>
+      createGame = () => {
+        let join = Math.floor(Math.random() * 101);
+        alert(`Please share the join code with 2 friends: "${JOIN}"`);
+        window.location.href = "./html/game.html";
+      };
+
+      joinGame = () => {
+        let codeEntered = prompt("Please enter join code", "");
+        if (codeEntered === join) {
+          window.location.href = "./html/game.html";
+        } else {
+          alert("Invalid join code.");
+        }
+      };
+    </script>
   </body>
 </html>
