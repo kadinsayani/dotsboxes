@@ -5,7 +5,6 @@ class Game extends React.Component {
     super(props);
     this.state = this.board();
     socket.on("init", this.handleInit);
-    // recieve game state from socket
     socket.on("game state", (newBoardState) => {
       this.setState({ ...newBoardState });
     });

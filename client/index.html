@@ -13,17 +13,23 @@
       <button onclick="createGame()">Create a new game</button>
       <button onclick="joinGame()">Join a game</button>
     </div>
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+      // const socket = io();
+      var join = 0;
+      // socket.on("join code", (joinCode) => {
+      //   join = joinCode;
+      // });
+
       createGame = () => {
-        let join = Math.floor(Math.random() * 101);
-        alert(`Please share the join code with 2 friends: "${JOIN}"`);
+        // () => socket.emit("game state", this.state);
+        alert(`Please share the join code with 2 friends: "${join}"`);
         window.location.href = "./html/game.html";
       };
 
       joinGame = () => {
         let codeEntered = prompt("Please enter join code", "");
-        if (codeEntered === join) {
+        if (codeEntered == join) {
           window.location.href = "./html/game.html";
         } else {
           alert("Invalid join code.");
