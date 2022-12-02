@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
     currentRoom = Math.floor(Math.random() * 101);
   }
   socket.join(currentRoom);
-  console.log(currentRoom);
+  io.to(currentRoom).emit("room", currentRoom);
   socket.on("gameState", (gameState) => {
     socket.to(currentRoom).emit("gameState", gameState);
   });

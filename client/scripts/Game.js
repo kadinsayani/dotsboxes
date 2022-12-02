@@ -4,6 +4,9 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.board();
+    socket.on("room", (currentRoom) => {
+      alert(`Room code: ${currentRoom}`);
+    });
     socket.on("game state", (newBoardState) => {
       this.setState({ ...newBoardState });
     });
@@ -11,10 +14,6 @@ class Game extends React.Component {
       this.socketUpdateLines(data);
     });
   }
-
-  updateFromLocalStorage = () => {
-    //todo
-  };
 
   board = () => {
     let state = {
