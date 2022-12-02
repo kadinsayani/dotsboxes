@@ -4,7 +4,6 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.board();
-    socket.on("init", this.handleInit);
     socket.on("game state", (newBoardState) => {
       this.setState({ ...newBoardState });
     });
@@ -12,6 +11,10 @@ class Game extends React.Component {
       this.socketUpdateLines(data);
     });
   }
+
+  updateFromLocalStorage = () => {
+    //todo
+  };
 
   board = () => {
     let state = {
@@ -322,6 +325,7 @@ class Game extends React.Component {
         },
         () => socket.emit("game state", this.state)
       );
+      localStorage.setItem("red score", this.state.redScore);
     } else if (this.state.turn === "blue") {
       this.setState(
         {
@@ -329,6 +333,7 @@ class Game extends React.Component {
         },
         () => socket.emit("game state", this.state)
       );
+      localStorage.setItem("blue score", this.state.blueScore);
     } else if (this.state.turn === "green") {
       this.setState(
         {
@@ -336,6 +341,7 @@ class Game extends React.Component {
         },
         () => socket.emit("game state", this.state)
       );
+      localStorage.setItem("green score", this.state.greenScore);
     }
   };
 
