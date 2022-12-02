@@ -5,7 +5,7 @@ class Game extends React.Component {
     super(props);
     this.state = this.board();
     socket.on("room", (currentRoom) => {
-      alert(`Room code: ${currentRoom}`);
+      this.setState({ room: currentRoom });
     });
     socket.on("game state", (newBoardState) => {
       this.setState({ ...newBoardState });
@@ -18,6 +18,7 @@ class Game extends React.Component {
   board = () => {
     let state = {
       boardSize: 3,
+      room: "",
       redScore: 0,
       blueScore: 0,
       greenScore: 0,
@@ -89,6 +90,8 @@ class Game extends React.Component {
         filled: false,
       },
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < state.boardSize; j++) {
         for (let k = 0; k < state.boardSize; k++) {
@@ -449,17 +452,40 @@ class Game extends React.Component {
     return React.createElement("div", { id: "game-board" }, cols);
   };
 
+  handleSubmit = (event) => {
+    socket.emit("room", this.state.room);
+  };
+
+  handleChange(event) {
+    this.setState({ room: event.target.value });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div>
         <div id="game">
           <h1>Dots and Boxes </h1>
           <p>
-            {" "}
-            Red:{this.state.redScore} Blue:{this.state.blueScore} Green:
+            Score: Red:{this.state.redScore} Blue:{this.state.blueScore} Green:
             {this.state.greenScore}
           </p>
-          <p>Winner:{this.state.winner}</p>
+          <p>Winner: {this.state.winner}</p>
+          <p>Room: {this.state.room}</p>
+          <br />
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Join another room:
+              <input
+                type="text"
+                name="room"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+            </label>
+            <input type="submit" value="Join" />
+          </form>
+          <br />
           <div id="board">{this.createBoard(this.state.boardSize)}</div>
         </div>
         <a href="/index.html">Restart</a>

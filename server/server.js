@@ -17,14 +17,18 @@ let currentRoom = room;
 
 io.on("connection", (socket) => {
   if (rooms.get(currentRoom) === undefined) {
-    rooms.set(currentRoom, 0);
+    rooms.set(currentRoom, 1);
   } else {
     rooms.set(currentRoom, rooms.get(currentRoom) + 1);
   }
   if (rooms.get(currentRoom) === 3) {
     currentRoom = Math.floor(Math.random() * 101);
   }
+  socket.on("room", (room) => {
+    socket.join(room);
+  });
   socket.join(currentRoom);
+  console.log(rooms);
   io.to(currentRoom).emit("room", currentRoom);
   socket.on("gameState", (gameState) => {
     socket.to(currentRoom).emit("gameState", gameState);
