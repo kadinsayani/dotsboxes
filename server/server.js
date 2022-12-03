@@ -13,17 +13,21 @@ app.get("/", (req, res) => {
 });
 
 let room = Math.floor(Math.random() * 101);
-let currentRoom = room;
+// let currentRoom = room;
 
 io.on("connection", (socket) => {
-  if (rooms.get(currentRoom) === undefined) {
-    rooms.set(currentRoom, 1);
+  if (rooms.get(room) && rooms.get(room).length === 3) {
+    room = Math.floor(Math.random() * 101);
+  }
+  if (!rooms.get(room)) {
+    rooms.set(room, [socket.id]);
   } else {
-    rooms.set(currentRoom, rooms.get(currentRoom) + 1);
+    rooms.set(room, [...rooms.get(room), socket.id]);
   }
-  if (rooms.get(currentRoom) === 3) {
-    currentRoom = Math.floor(Math.random() * 101);
-  }
+  socket.join(room);
+  console.log(rooms);
+  const currentRoom = [...socket.rooms][1];
+  socket.emit("room", currentRoom);
   socket.on("room", (room) => {
     socket.join(room);
   });
